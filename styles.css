@@ -1,0 +1,22 @@
+.book-grid{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
+    align-items: center;
+    justify-items: center;
+}
+
+.add-book{
+    grid-column-start: 2;
+    height: 50px;
+    width: 100px;
+}
+.book-card{
+    grid-row-start: 2;
+}
+.add-book-modal{
+    display: grid;
+    width: 50%;
+}
