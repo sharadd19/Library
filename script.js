@@ -11,38 +11,40 @@ function addBookToLibrary(book) {
     myLibrary.push(book);
 }
 
-const theHobbit = new Book("The Hobbit", "J R R Tolkien", "700", 'true');
-const insmonia = new Book("Insomnia", "Stephen King", "760", 'false');
-
-myLibrary.push(theHobbit, insmonia);
-
-displayBook = () => {
-    if (myLibrary.length > 0)
-    {
-        // Add the book information to the cards in the html
-        myLibrary.forEach(book => {
-            createBookCard(book);
-        })
-
-        // Hide buttons if there are no books in the library
-        
-    }
-    
-}
-
 const bookGrid = document.querySelector('.book-grid');
 const addBook = document.querySelector('.add-book');
 const dialog = document.querySelector('dialog');
 const closeButton = document.querySelector('.close');
+const submitButton = document.querySelector('.submit');
+
+submitButton.addEventListener('click', (e) => {
+    const book = getBookInformation();
+    createBookCard(book);
+    console.log(book);
+    // Check to see if book is in the library already
+    if (isInLibrary(book)) {
+        // error
+        console.log('asdfasdf');    
+        document.querySelector('.book-exists').textContent = 'Book already exists in library!';
+    }
+    addBookToLibrary(book);
+    dialog.close();
+    e.preventDefault();
+
+})
 
 addBook.addEventListener('click', () => {
+    //Clear all the information out 
+    dialogForm.reset();
     dialog.showModal();
 
 })
 
-closeButton.addEventListener('click', () => {
+closeButton.addEventListener('click', (e) => {
+    e.preventDefault();
     dialog.close();
-})
+})    
+
 createBookCard = (book) => {
     const bookCard = document.createElement('div');
     const title = document.createElement('p');
@@ -55,8 +57,8 @@ createBookCard = (book) => {
     title.classList.add('book-title');
     author.classList.add('book-author');
     pages.classList.add('book-pages');
-    readButton.classList.add('read-button')
-    removeButton.classList.add('remove-button')
+    readButton.classList.add('read-button');
+    removeButton.classList.add('remove')
 
     title.textContent = book.title;
     author.textContent = book.author;
@@ -74,10 +76,49 @@ createBookCard = (book) => {
     bookCard.appendChild(title);
     bookCard.appendChild(author);
     bookCard.appendChild(pages);
-    bookGrid.appendChild(bookCard);
     bookCard.appendChild(readButton);
-    bookCard.appendChild(removeButton);
+    bookCard.appendChild(removeButton)
+    bookGrid.appendChild(bookCard);
+
+    removeButton.addEventListener('click', (e) => {
+        e.target.parentElement.remove();
+    })
+
+    readButton.addEventListener('click', (e) => {
+        var parent = e.target.parentElement;
+        var isRead = parent.querySelector('.read-button').textContent;
+        console.log(isRead);
+        if (isRead === "Read") {
+            readButton.textContent = "Not read"
+            readButton.classList.remove('read')
+            readButton.classList.add('not-read')
+
+        }
+        else if (isRead === "Not read"){
+            readButton.textContent = "Read"
+            readButton.classList.remove('not-read')
+            readButton.classList.add('read')
+
+        }
+     })
+   
 }
 
+getBookInformation = () => {
+    const newBookTitle = document.getElementById('input-title').value;
+    const newBookAuthor = document.getElementById('input-author').value;
+    const newBookPages = document.getElementById('input-pages').value;
+    const newBookRead = document.getElementById('input-is-read').checked;
 
-displayBook();
+    return new Book(newBookTitle, newBookAuthor, newBookPages, newBookRead);
+
+}
+
+isInLibrary = (book) => {
+    if (myLibrary.length !== 0) {
+        myLibrary.some(libraryBook => {
+            return libraryBook.title === book.title;
+        })
+    };
+}
+

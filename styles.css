@@ -2,8 +2,6 @@
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(3, 1fr);
-    /* grid-template-rows: repeat(2, 1fr);
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); */
     align-items: center;
     justify-items: center;
 }
@@ -15,8 +13,48 @@
 }
 .book-card{
     grid-row-start: 2;
+    background: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 10px;
+    align-items: center;
+    text-align: center;
 }
 .add-book-modal{
     display: grid;
-    width: 50%;
+    gap: 5px;    
+    width: 100%;
+
+}
+dialog {
+    border-radius: 10px;
+}
+.book-exists {
+    color: red;
+}
+.read, .submit{
+    background-color: green;
+    color: white;
+    
+}
+.not-read{
+    background-color: salmon;
+    color: white;
+}
+
+button {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    width: 70px;
+    height: 25px;
+    margin: 5px;
+}
+.button-group, .is-read{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+h4 {
+    text-align: center;
 }
