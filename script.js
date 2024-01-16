@@ -85,6 +85,13 @@ createBookCard = (book) => {
     })
 
     // Do this using prototypes?
+    // Book.prototype.isRead = (checkedValue, readButton) => {
+    //     if (checkedValue || readButton.textContent === "Read"){
+    //         return true;
+    //     }
+    //     return false;
+
+    // }
     readButton.addEventListener('click', (e) => {
         var parent = e.target.parentElement;
         var isRead = parent.querySelector('.read-button').textContent;
