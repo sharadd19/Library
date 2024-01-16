@@ -84,6 +84,7 @@ createBookCard = (book) => {
         e.target.parentElement.remove();
     })
 
+    // Do this using prototypes?
     readButton.addEventListener('click', (e) => {
         var parent = e.target.parentElement;
         var isRead = parent.querySelector('.read-button').textContent;
@@ -114,6 +115,7 @@ getBookInformation = () => {
 
 }
 
+// Does not work!
 isInLibrary = (book) => {
     if (myLibrary.length !== 0) {
         myLibrary.some(libraryBook => {
