@@ -13,21 +13,27 @@
         
     </div>
     <dialog>
-        <form action="" formmethod="dialog" id="dialogForm">
+        <form action="" name="addBookForm" formmethod="dialog" id="dialogForm" onsubmit="return validateForm()">
             <div class="add-book-modal">
                 <h4>Add a new book!</h4>
                 <label for="input-title">Title</label>
-                <input type="text" class="input-title" id="input-title" required maxlength="100">
+                <input type="text" class="input-title" id="input-title" name="title" required/>
+                <div class="title-error"> </div>
+
                 <label for="input-author">Author</label>
-                <input required type="text" class="input-author" id="input-author">
+                <input type="text" class="input-author" id="input-author" name="author" required/>
+                <div class="author-error"></div>
+
                 <label for="input-pages">Pages</label>            
-                <input required type="number" class="input-pages" id="input-pages">
+                <input type="number" class="input-pages" id="input-pages" name="pages" required/>
+                <div class="pages-error"></div>
+                
                 <div class="is-read">
                     <label for="input-is-read">Have you read it?</label>
                     <input type="checkbox" class="input-is-read" id="input-is-read">
                 </div>
                 <div class="button-group">
-                    <button class="submit">Submit</button>
+                    <button type="submit" class="submit">Submit</button>
                     <button class="close">Close</button>
                 </div>
                 <p class="book-exists"></p>

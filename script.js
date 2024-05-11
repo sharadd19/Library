@@ -8,7 +8,8 @@ function Book (title, author, pages, isRead) {
 }
 
 function addBookToLibrary(book) {
-    myLibrary.push(book);
+    myLibrary.push(book)
+    dialog.close()
 }
 
 const bookGrid = document.querySelector('.book-grid');
@@ -19,18 +20,20 @@ const submitButton = document.querySelector('.submit');
 
 submitButton.addEventListener('click', (e) => {
     const book = getBookInformation();
-    createBookCard(book);
-    console.log(book);
-    // Check to see if book is in the library already
-    if (isInLibrary(book)) {
-        // error
-        console.log('asdfasdf');    
-        document.querySelector('.book-exists').textContent = 'Book already exists in library!';
-    }
-    addBookToLibrary(book);
-    dialog.close();
-    e.preventDefault();
+    const validation = validateForm();
 
+    while (!validation) {
+        return validateForm();
+    }
+    if (isInLibrary(book)){
+        document.querySelector('.book-exists').textContent = 'Book already exists in library!';
+        e.preventDefault();
+    }
+    else {
+        createBookCard(book);
+        addBookToLibrary(book);
+        e.preventDefault();
+    }
 })
 
 addBook.addEventListener('click', () => {
@@ -124,10 +127,26 @@ getBookInformation = () => {
 
 // Does not work!
 isInLibrary = (book) => {
-    if (myLibrary.length !== 0) {
-        myLibrary.some(libraryBook => {
-            return libraryBook.title === book.title;
-        })
-    };
+    console.log(book.title);
+    return myLibrary.some(libraryBook => libraryBook.title == book.title);
 }
 
+// validation 
+function validateForm() {
+    let title = document.forms["addBookForm"]["title"].value;
+    let author = document.forms["addBookForm"]["author"].value;
+    let pages = document.forms["addBookForm"]["pages"].value;
+    const titleError = document.querySelector('.title-error');
+    const authorError = document.querySelector('.author-error');
+    const pageError = document.querySelector('.pages-error');
+  if (title == "") {
+    return false;
+  }
+  else if (author == "") {
+    return false;
+  }
+  else if (pages == ""){
+    return false;
+  }
+  return true;
+}
