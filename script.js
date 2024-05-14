@@ -1,3 +1,4 @@
+document.title = "Library"
 const myLibrary = [];
 
 function Book (title, author, pages, isRead) {
